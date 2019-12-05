@@ -1,0 +1,36 @@
+{
+	"name": "sllite/yii2-blog",
+	"description": "Yii 2 Blog",
+	"keywords": ["yii2", "blog", "yii2blog", "yii 2 blog"],
+	"homepage": "http://www.sllite.ru/",
+	"type": "project",
+	"license": "BSD-3-Clause",
+	"minimum-stability": "dev",
+	"require": {
+		"php": ">=7.1.0",
+		"yiisoft/yii2": "~2.0.14",
+		"yiisoft/yii2-bootstrap": "~2.0.0",
+		"yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0"
+	},
+    "require-dev": {
+		"yiisoft/yii2-debug": "~2.0.0",
+		"yiisoft/yii2-gii": "~2.0.0",
+		"yiisoft/yii2-faker": "~2.0.0",
+		"codeception/base": "^2.4.0",
+		"phpunit/phpunit": "~7.1.0",
+		"codeception/verify": "~1.0.0",
+		"guzzlehttp/guzzle": ">=4.1.4 <7.0"
+	},
+	"config": {
+		"process-timeout": 1800,
+		"fxp-asset": {
+			"enabled": false
+		}
+	},
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://asset-packagist.org"
+		}
+	]
+}
