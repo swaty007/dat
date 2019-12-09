@@ -3,6 +3,7 @@ use backend\assets\AppAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
 /* @var $this \yii\web\View */
@@ -57,6 +58,13 @@ AppAsset::register($this);
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
+            <ul class="nav nav-pills">
+                <li><a href="<?= Url::toRoute('post/index'); ?>"><?= Yii::t('backend', 'Posts') ?></a></li>
+                <li><a href="<?= Url::toRoute('category/index'); ?>"><?= Yii::t('backend', 'Categories') ?></a></li>
+                <li><a href="<?= Url::toRoute('tags/index'); ?>"><?= Yii::t('backend', 'Tags') ?></a></li>
+                <li><a href="<?= Url::toRoute('comment/index'); ?>"><?= Yii::t('backend', 'Comments') ?></a></li>
+                <li><a href="<?= Url::toRoute('user/index'); ?>"><?= Yii::t('backend', 'Users') ?></a></li>
+            </ul>
         <?= $content ?>
         </div>
     </div>

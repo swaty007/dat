@@ -8,7 +8,7 @@ use yii\widgets\LinkPager;
 /* @var $categories yii\data\ActiveDataProvider */
 /* @var $post common\models\Post */
 
-$this->title = Yii::t('frontend', 'Blog');
+//$this->title = Yii::t('frontend', 'Blog');
 ?>
 
 <div class="col-sm-8 post-index">

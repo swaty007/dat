@@ -1,5 +1,6 @@
 <?php
 
+use common\components\MetaTags;
 use common\models\Post;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -40,7 +41,10 @@ use yii\widgets\ActiveForm;
     ) ?>
 
     <?= $form->field($model, 'publish_date')->textInput() ?>
-
+    <?= MetaTags::widget([
+        'model' => $model,
+        'form' => $form
+    ])?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

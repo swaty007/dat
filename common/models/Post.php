@@ -2,13 +2,15 @@
 
 namespace common\models;
 
+
+
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
-
+use common\components\MetaTagBehavior;
 /**
  * Post model.
  *
@@ -29,7 +31,14 @@ class Post extends ActiveRecord
 {
     public const STATUS_PUBLISH = 'publish';
     public const STATUS_DRAFT = 'draft';
-
+    public function behaviors()
+    {
+        return [
+            'MetaTag' => [
+                'class' => MetaTagBehavior::className(),
+            ],
+        ];
+    }
     /**
      * Tag list
      * @var array
@@ -140,7 +149,7 @@ class Post extends ActiveRecord
     /**
      * @throws NotFoundHttpException
      */
-    public static function findById(int $id, bool $ignorePublishStatus = false): Post
+    public static function findById(int $id, bool $ignorePublishStatus = null): Post
     {
         if (($model = Post::findOne($id)) !== null) {
             if ($model->isPublished() || $ignorePublishStatus) {

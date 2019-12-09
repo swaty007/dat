@@ -9,6 +9,11 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'metaTags' => [
+            'class' => 'common\components\MetaTagsComponent',
+            'generateCsrf' => false,
+            'generateOg' => true,
+        ],
         'authManager' => [
             'class' => 'yii\rbac\PhpManager',
             'defaultRoles' => ['user', 'admin'],
@@ -37,4 +42,5 @@ return [
             ],
         ],
     ],
+    'language' => 'ru',
 ];
