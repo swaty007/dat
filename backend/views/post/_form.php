@@ -35,7 +35,7 @@ use mihaildev\elfinder\ElFinder;
 
     <?= $form->field($model, 'content')->widget(CKEditor::className(), [
         'editorOptions' => ElFinder::ckeditorOptions(['elfinder', 'multiple' => false],[
-            'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+            'preset' => 'standard', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
             'inline' => false,
         ]),
     ]); ?>

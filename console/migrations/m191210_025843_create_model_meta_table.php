@@ -17,8 +17,8 @@ class m191210_025843_create_model_meta_table extends Migration
             'model' => $this->string(255)->notNull(),
             'model_id' => $this->integer(11)->notNull(),
             'meta_key' => $this->string(255)->notNull(),
-            'meta_title' => $this->string(255)->notNull(),
-            'meta_value' => $this->text()->notNull(),
+            'meta_title' => $this->string(255),
+            'meta_value' => $this->text(),
         ]);
 
         $this->createIndex('meta_key', '{{%model_meta}}', 'meta_key');

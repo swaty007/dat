@@ -72,6 +72,7 @@ AppAsset::register($this);
                     </ul>
                 </li>
                 <li><a href="<?= Url::toRoute('locations/index'); ?>"><?= Yii::t('backend', 'Locations') ?></a></li>
+                <li><a href="<?= Url::toRoute('review/index'); ?>"><?= Yii::t('backend', 'Review') ?></a></li>
                 <li><a href="<?= Url::toRoute('user/index'); ?>"><?= Yii::t('backend', 'Users') ?></a></li>
             </ul>
         <?= $content ?>

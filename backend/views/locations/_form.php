@@ -26,28 +26,54 @@ use unclead\multipleinput\MultipleInput;
 
     <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'meta_header')->widget(MultipleInput::className(), [
+//    'max' => 4,
+//        'min' => 1,
+        'addButtonPosition' => MultipleInput::POS_FOOTER,
+        'columns' => [
+            [
+                'name'  => 'meta_key',
+                'type'  => 'dropDownList',
+                'title' => 'Position',
+                'items' => [
+                        'top' => 'Top'
+                ],
+                'defaultValue' => 'top',
+                'options' => [
+//                    'class' => 'hidden'
+                ]
+            ],
+            [
+                'name'  => 'meta_title',
+                'title' => 'Header div',
+                'enableError' => true,
+            ],
+            [
+                'name'  => 'meta_value',
+                'title' => 'Content span',
+                'options' => [
+                    'class' => 'input-priority'
+                ]
+            ],
+        ]
+    ]);?>
+
     <?= $form->field($model, 'html_content_top')->widget(CKEditor::className(), [
         'editorOptions' => ElFinder::ckeditorOptions(['elfinder', 'multiple' => false],[
-            'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+            'preset' => 'standard', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
             'inline' => false,
         ]),
     ]); ?>
-    <?= $form->field($model, 'html_content_middle')->widget(CKEditor::className(), [
-        'editorOptions' => ElFinder::ckeditorOptions(['elfinder', 'multiple' => false],[
-            'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
-            'inline' => false,
-        ]),
-    ]); ?>
-    <?= $form->field($model, 'html_content_bottom')->widget(CKEditor::className(), [
-        'editorOptions' => ElFinder::ckeditorOptions(['elfinder', 'multiple' => false],[
-            'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
-            'inline' => false,
-        ]),
-    ]); ?>
+<!--    --><?//= $form->field($model, 'html_content_middle')->widget(CKEditor::className(), [
+//        'editorOptions' => ElFinder::ckeditorOptions(['elfinder', 'multiple' => false],[
+//            'preset' => 'standard', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+//            'inline' => false,
+//        ]),
+//    ]); ?>
 
-    <?= $form->field($model, 'model_meta')->widget(MultipleInput::className(), [
-//    'max' => 4,
-        'min' => 3,
+    <?= $form->field($model, 'reasons_head')->widget(MultipleInput::className(), [
+    'max' => 1,
+//        'min' => 3,
         'addButtonPosition' => MultipleInput::POS_FOOTER,
 
         'columns' => [
@@ -55,20 +81,20 @@ use unclead\multipleinput\MultipleInput;
                 'name'  => 'meta_key',
                 'type'  => 'dropDownList',
                 'title' => 'Position',
-                'items' => \common\models\ModelMeta::LOCATION_KEYS
+                'defaultValue' => 'reasons_head',
+                'items' => [
+                        'reasons_head' => 'Reasons top html'
+                ]
             ],
             [
                 'name'  => 'meta_title',
                 'title' => 'Header',
                 'enableError' => true,
-                'options' => [
-                    'class' => 'input-priority'
-                ]
             ],
             [
                 'name'  => 'meta_value',
                 'type'  => CKEditor::className(),
-                'title' => 'Content',
+                'title' => 'Content html',
                 'options' => [
                     'editorOptions' => ElFinder::ckeditorOptions(['elfinder', 'multiple' => false],[
                         'preset' => 'basic',
@@ -78,6 +104,40 @@ use unclead\multipleinput\MultipleInput;
             ],
         ]
     ]);?>
+    <?= $form->field($model, 'reasons')->widget(MultipleInput::className(), [
+//    'max' => 4,
+        'min' => 3,
+        'addButtonPosition' => MultipleInput::POS_FOOTER,
+        'columns' => [
+            [
+                'name'  => 'meta_key',
+                'type'  => 'dropDownList',
+                'title' => 'Position',
+                'defaultValue' => 'reasons',
+                'items' => [
+                    'reasons' => 'Reason'
+                ]
+            ],
+            [
+                'name'  => 'meta_title',
+                'title' => 'Header h3',
+                'enableError' => true,
+            ],
+            [
+                'name'  => 'meta_value',
+                'title' => "Content (p)",
+            ],
+        ]
+    ]);?>
+
+    <?= $form->field($model, 'html_content_bottom')->widget(CKEditor::className(), [
+        'editorOptions' => ElFinder::ckeditorOptions(['elfinder', 'multiple' => false],[
+            'preset' => 'standard', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+            'inline' => false,
+        ]),
+    ]); ?>
+
+
     <?= MetaTags::widget([
         'model' => $model,
         'form' => $form

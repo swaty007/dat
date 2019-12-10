@@ -15,7 +15,7 @@ use Yii;
  * @property string $h1
  * @property string $desc
  * @property string $html_content_top
- * @property string $html_content_middle
+// * @property string $html_content_middle
  * @property string $html_content_bottom
  *
  * @property ModelMeta[] $model_meta
@@ -40,6 +40,9 @@ class Locations extends \yii\db\ActiveRecord
         return 'locations';
     }
     protected $model_meta = [];
+    protected $meta_header = [];
+    protected $reasons_head = [];
+    protected $reasons = [];
     /**
      * {@inheritdoc}
      */
@@ -52,7 +55,7 @@ class Locations extends \yii\db\ActiveRecord
             [['url', 'h1'], 'string', 'max' => 55],
             [['refer_link'], 'string', 'max' => 255],
             [['desc'], 'string', 'max' => 500],
-            [['model_meta'], 'safe'],
+            [['model_meta','reasons_head','meta_header','reasons'], 'safe'],
         ];
     }
 
@@ -69,8 +72,9 @@ class Locations extends \yii\db\ActiveRecord
             'h1' => Yii::t('backend', 'H1'),
             'desc' => Yii::t('backend', 'Desc'),
             'html_content_top' => Yii::t('backend', 'Html Content Top'),
-            'html_content_middle' => Yii::t('backend', 'Html Content Middle'),
+//            'html_content_middle' => Yii::t('backend', 'Html Content Middle'),
             'html_content_bottom' => Yii::t('backend', 'Html Content Bottom'),
+            'meta_header' => Yii::t('backend', 'Top header'),
         ];
     }
 
@@ -86,12 +90,32 @@ class Locations extends \yii\db\ActiveRecord
             ->andOnCondition('model = "Locations"');
     }
 
+    public function getMeta_header()
+    {
+        return $this->hasMany(ModelMeta::className(), ['model_id' => 'id'])
+            ->andOnCondition('model = "Locations"')
+            ->andOnCondition('meta_key = "top"');
+    }
+    public function getReasons_head()
+    {
+        return $this->hasMany(ModelMeta::className(), ['model_id' => 'id'])
+            ->andOnCondition('model = "Locations"')
+            ->andOnCondition('meta_key = "reasons_head"');
+    }
+    public function getReasons()
+    {
+        return $this->hasMany(ModelMeta::className(), ['model_id' => 'id'])
+            ->andOnCondition('model = "Locations"')
+            ->andOnCondition('meta_key = "reasons"');
+    }
     public function afterSave($insert, $changedAttributes)
     {
         foreach (ModelMeta::find()->where(['model_id' => $this->id])->andOnCondition('model = "Locations"')->all() as $meta) {
             $meta->delete();
         }
 
+//        echo $this->meta_header;
+        $this->model_meta = array_merge($this->meta_header, $this->reasons_head, $this->reasons);
         if (is_array($this->model_meta) && !empty($this->model_meta)) {
             $data = [];
             foreach ($this->model_meta as $meta) {

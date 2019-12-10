@@ -20,13 +20,15 @@ class ModelMeta extends \yii\db\ActiveRecord
 {
     public const LOCATION_KEYS = [
         'top' => 'Top',
+        'reasons_head' => 'Reasons head (only one)',
         'reasons' => 'Reasons',
-        'reasons_head' => 'Reasons head (only one)'
     ];
     public const REVIEW_KEYS = [
-        'top' => 'Top (write title only)',
         'pros_cons' => 'Pros/Cons h2',
-        'steps' => 'Steps'
+        'pros_cons_title' => 'Pros/Cons h2',
+        'steps_head' => 'Steps Header',
+        'steps' => 'Steps',
+        'steps_footer' => 'Steps Footer',
     ];
     /**
      * {@inheritdoc}
@@ -70,6 +72,11 @@ class ModelMeta extends \yii\db\ActiveRecord
         return $this->hasOne(Locations::className(), ['id' => 'model_id'])
             ->andOnCondition(['"Locations" = "'.$this->model.'"']);
 //            ->via('informer_tag');
+    }
+    public function getReview()
+    {
+        return $this->hasOne(Review::className(), ['id' => 'model_id'])
+            ->andOnCondition(['"Review" = "'.$this->model.'"']);
     }
 //    public function getInformer_tag()
 //    {
