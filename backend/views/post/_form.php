@@ -5,6 +5,8 @@ use common\models\Post;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use mihaildev\ckeditor\CKEditor;
+use mihaildev\elfinder\ElFinder;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Post */
@@ -30,7 +32,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'anons')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'content')->widget(CKEditor::className(), [
+        'editorOptions' => ElFinder::ckeditorOptions(['elfinder', 'multiple' => false],[
+            'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+            'inline' => false,
+        ]),
+    ]); ?>
 
     <?= $form->field($model, 'publish_status')->dropDownList(
         [Post::STATUS_DRAFT => Yii::t('backend', 'Draft'), Post::STATUS_PUBLISH => Yii::t('backend', 'Published')]

@@ -59,10 +59,19 @@ AppAsset::register($this);
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
             <ul class="nav nav-pills">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        Blog
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
                 <li><a href="<?= Url::toRoute('post/index'); ?>"><?= Yii::t('backend', 'Posts') ?></a></li>
                 <li><a href="<?= Url::toRoute('category/index'); ?>"><?= Yii::t('backend', 'Categories') ?></a></li>
                 <li><a href="<?= Url::toRoute('tags/index'); ?>"><?= Yii::t('backend', 'Tags') ?></a></li>
                 <li><a href="<?= Url::toRoute('comment/index'); ?>"><?= Yii::t('backend', 'Comments') ?></a></li>
+                    </ul>
+                </li>
+                <li><a href="<?= Url::toRoute('locations/index'); ?>"><?= Yii::t('backend', 'Locations') ?></a></li>
                 <li><a href="<?= Url::toRoute('user/index'); ?>"><?= Yii::t('backend', 'Users') ?></a></li>
             </ul>
         <?= $content ?>
@@ -71,7 +80,7 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-            <p class="pull-left">&copy; <a href="https://sllite.ru" target="_blank">sllite.ru</a> <?= date('Y') ?></p>
+            <p class="pull-left">&copy; <a href="https://infinitum.tech" target="_blank">sllite.ru</a> <?= date('Y') ?></p>
             <p class="pull-right"><?= Yii::powered() ?></p>
         </div>
     </footer>

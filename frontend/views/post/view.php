@@ -15,6 +15,7 @@ use yii\helpers\Html;
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Posts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+Yii::$app->metaTags->register($model);
 ?>
 
 <h1><?= $model->title ?></h1>
