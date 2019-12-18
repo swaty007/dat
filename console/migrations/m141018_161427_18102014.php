@@ -22,6 +22,7 @@ class m141018_161427_18102014 extends Migration
         $this->createTable(Post::tableName(), [
             'id' => $this->primaryKey(),
             'title' => $this->string()->notNull(),
+            'background_img' => $this->string(255)->notNull(),
             'anons' => $this->text()->notNull(),
             'content' => $this->text()->notNull(),
             'category_id' => $this->integer(),

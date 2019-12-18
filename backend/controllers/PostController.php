@@ -13,6 +13,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
+use yii\web\UploadedFile;
 
 class PostController extends Controller
 {
@@ -63,8 +64,12 @@ class PostController extends Controller
     {
         $model = new Post();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->backgroundImage = UploadedFile::getInstance($model, 'background_img');
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         $model->author_id = Yii::$app->user->id;
@@ -83,8 +88,11 @@ class PostController extends Controller
     {
         $post = Post::findById($id, true);
 
-        if ($post->load(Yii::$app->request->post()) && $post->save()) {
-            return $this->redirect(['view', 'id' => $post->id]);
+        if ($post->load(Yii::$app->request->post())) {
+            $post->backgroundImage = UploadedFile::getInstance($post, 'background_img');
+            if ($post->save()) {
+                return $this->redirect(['view', 'id' => $post->id]);
+            }
         }
 
         return $this->render('update', [
@@ -97,7 +105,12 @@ class PostController extends Controller
 
     public function actionDelete(int $id): Response
     {
-        Post::findById($id, true)->delete();
+        $model = Post::findById($id, true);
+        if(!is_null($model->background_img))
+        {
+            unlink(Yii::$app->params['uploadsDir'] . $model->background_img);
+        }
+        $model->delete();
 
         return $this->redirect(['index']);
     }

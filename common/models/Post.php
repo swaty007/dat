@@ -16,6 +16,7 @@ use common\components\MetaTagBehavior;
  *
  * @property string $id
  * @property string $title
+ * @property string $background_img
  * @property string $anons
  * @property string $content
  * @property string $category_id
@@ -31,6 +32,7 @@ class Post extends ActiveRecord
 {
     public const STATUS_PUBLISH = 'publish';
     public const STATUS_DRAFT = 'draft';
+    public $backgroundImage;
     public function behaviors()
     {
         return [
@@ -62,8 +64,10 @@ class Post extends ActiveRecord
             [['title'], 'required'],
             [['category_id', 'author_id'], 'integer'],
             [['anons', 'content', 'publish_status'], 'string'],
+            [['background_img'], 'string', 'max' => 255],
             [['publish_date', 'tags'], 'safe'],
-            [['title'], 'string', 'max' => 255]
+            [['title'], 'string', 'max' => 255],
+            [['backgroundImage'], 'file', 'extensions' => 'png, jpg, svg'],
         ];
     }
 
@@ -160,6 +164,24 @@ class Post extends ActiveRecord
         throw new NotFoundHttpException('The requested post does not exist.');
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if ($this->backgroundImage) {
+            if(!empty($this->oldAttributes['background_img']))
+            {
+                unlink(Yii::$app->params['uploadsDir'] . $this->oldAttributes['background_img']);
+            }
+            $pimgName =  'post' . time() . $this->id . '.' . $this->backgroundImage->extension;
+            $this->backgroundImage->saveAs(Yii::$app->params['uploadsDir'] . $pimgName);
+            $this->background_img = $pimgName;
+        } else {
+            $this->background_img = $this->oldAttributes['background_img'];
+        }
+        return parent::beforeSave($insert);
+    }
     /**
      * @inheritdoc
      */
