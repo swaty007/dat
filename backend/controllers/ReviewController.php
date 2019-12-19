@@ -8,6 +8,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ReviewController implements the CRUD actions for Review model.
@@ -66,8 +67,12 @@ class ReviewController extends Controller
     {
         $model = new Review();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->reviewImage = UploadedFile::getInstance($model, 'image');
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
         }
 
         return $this->render('create', [
@@ -86,8 +91,11 @@ class ReviewController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->reviewImage = UploadedFile::getInstance($model, 'image');
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
@@ -104,8 +112,12 @@ class ReviewController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $model = $this->findModel($id);
+        if(!empty($model->image))
+        {
+            unlink(Yii::$app->params['uploadsDir'] . $model->image);
+        }
+        $model->delete();
         return $this->redirect(['index']);
     }
 

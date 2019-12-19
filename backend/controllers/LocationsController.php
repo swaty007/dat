@@ -9,6 +9,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * LocationsController implements the CRUD actions for Locations model.
@@ -78,8 +79,11 @@ class LocationsController extends Controller
         $model = new Locations();
 
 //        echo var_dump(Yii::$app->request->post());exit;
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->backgroundImage = UploadedFile::getInstance($model, 'background_img');
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [
@@ -98,8 +102,12 @@ class LocationsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->backgroundImage = UploadedFile::getInstance($model, 'background_img');
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
         }
 
         return $this->render('update', [
@@ -116,7 +124,12 @@ class LocationsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        if(!empty($model->background_img))
+        {
+            unlink(Yii::$app->params['uploadsDir'] . $model->background_img);
+        }
+        $model->delete();
 
         return $this->redirect(['index']);
     }

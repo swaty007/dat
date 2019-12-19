@@ -20,6 +20,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'refer_link')->textInput(['maxlength' => true]) ?>
 
+    <?php if (!empty($model->image)):?>
+        <img src="<?='/img/uploads/' . $model->image?>" style="height:100px;widht:auto;">
+    <?php endif;?>
+    <?= $form->field($model, 'image')->fileInput() ?>
+
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'h1')->textInput(['maxlength' => true]) ?>

@@ -11,6 +11,7 @@ use Yii;
  * @property int $id
  * @property string $url
  * @property string $refer_link
+ * @property string $image
  * @property string $title
  * @property string $h1
  * @property string $h1_desc_html
@@ -21,7 +22,14 @@ use Yii;
  */
 class Review extends \yii\db\ActiveRecord
 {
-
+    public $reviewImage;
+    protected $model_meta = [];
+    protected $pros_cons_title = [];
+    protected $pros = [];
+    protected $cons = [];
+    protected $steps_head = [];
+    protected $steps = [];
+    protected $steps_footer = [];
     public function behaviors()
     {
         return [
@@ -38,13 +46,6 @@ class Review extends \yii\db\ActiveRecord
     {
         return 'review';
     }
-    protected $model_meta = [];
-    protected $pros_cons_title = [];
-    protected $pros = [];
-    protected $cons = [];
-    protected $steps_head = [];
-    protected $steps = [];
-    protected $steps_footer = [];
 
     /**
      * {@inheritdoc}
@@ -55,7 +56,7 @@ class Review extends \yii\db\ActiveRecord
             [['url', 'refer_link', 'title', 'h1', 'h1_desc_html', 'desc', 'html_content'], 'required'],
             [['h1_desc_html', 'html_content'], 'string'],
             [['url', 'refer_link', 'title', 'h1'], 'string', 'max' => 255],
-            [['desc'], 'string', 'max' => 500],
+            [['desc'], 'string', 'max' => 1000],
             [['model_meta','pros_cons_title','pros','cons','steps_head','steps','steps_footer'], 'safe'],
         ];
     }
@@ -119,7 +120,21 @@ class Review extends \yii\db\ActiveRecord
             ->andOnCondition('meta_key = "steps_footer"');
     }
 
-
+    public function beforeSave($insert)
+    {
+        if ($this->reviewImage) {
+            if(!empty($this->oldAttributes['image']))
+            {
+                unlink(Yii::$app->params['uploadsDir'] . $this->oldAttributes['image']);
+            }
+            $pimgName =  'review' . time() . $this->id . '.' . $this->reviewImage->extension;
+            $this->reviewImage->saveAs(Yii::$app->params['uploadsDir'] . $pimgName);
+            $this->image = $pimgName;
+        } else {
+            $this->image = $this->oldAttributes['image'];
+        }
+        return parent::beforeSave($insert);
+    }
     public function afterSave($insert, $changedAttributes)
     {
         foreach (ModelMeta::find()->where(['model_id' => $this->id])->andOnCondition('model = "Review"')->all() as $meta) {

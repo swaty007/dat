@@ -12,7 +12,8 @@ use yii\helpers\Html;
 /* @var TagPost $postTag */
 ?>
 
-<h1><?= $model->title ?></h1>
+<h1><?= $model->h1 ?></h1>
+<p><?= $model->desc ?></p>
 
 <div class="meta">
     <p><?= Yii::t('frontend', 'Author') ?>: <?= $model->author->username ?> <?= Yii::t('frontend', 'Publish date') ?>: <?= $model->publish_date ?> <?= Yii::t('frontend', 'Category') ?>: <?= Html::a($model->category->title, ['category/view', 'id' => $model->category->id]) ?></p>

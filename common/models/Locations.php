@@ -14,6 +14,7 @@ use Yii;
  * @property string $refer_link
  * @property string $h1
  * @property string $desc
+ * @property string $background_img
  * @property string $html_content_top
 // * @property string $html_content_middle
  * @property string $html_content_bottom
@@ -22,7 +23,11 @@ use Yii;
  */
 class Locations extends \yii\db\ActiveRecord
 {
-
+    public $backgroundImage;
+    protected $model_meta = [];
+    protected $meta_header = [];
+    protected $reasons_head = [];
+    protected $reasons = [];
     public function behaviors()
     {
         return [
@@ -39,10 +44,7 @@ class Locations extends \yii\db\ActiveRecord
     {
         return 'locations';
     }
-    protected $model_meta = [];
-    protected $meta_header = [];
-    protected $reasons_head = [];
-    protected $reasons = [];
+
     /**
      * {@inheritdoc}
      */
@@ -54,8 +56,9 @@ class Locations extends \yii\db\ActiveRecord
             [['html_content_top', 'html_content_middle', 'html_content_bottom'], 'string'],
             [['url', 'h1'], 'string', 'max' => 55],
             [['refer_link'], 'string', 'max' => 255],
-            [['desc'], 'string', 'max' => 500],
+            [['desc'], 'string', 'max' => 1000],
             [['model_meta','reasons_head','meta_header','reasons'], 'safe'],
+            [['backgroundImage'], 'file', 'extensions' => 'png, jpg, svg'],
         ];
     }
 
@@ -107,6 +110,21 @@ class Locations extends \yii\db\ActiveRecord
         return $this->hasMany(ModelMeta::className(), ['model_id' => 'id'])
             ->andOnCondition('model = "Locations"')
             ->andOnCondition('meta_key = "reasons"');
+    }
+    public function beforeSave($insert)
+    {
+        if ($this->backgroundImage) {
+            if(!empty($this->oldAttributes['background_img']))
+            {
+                unlink(Yii::$app->params['uploadsDir'] . $this->oldAttributes['background_img']);
+            }
+            $pimgName =  'location' . time() . $this->id . '.' . $this->backgroundImage->extension;
+            $this->backgroundImage->saveAs(Yii::$app->params['uploadsDir'] . $pimgName);
+            $this->background_img = $pimgName;
+        } else {
+            $this->background_img = $this->oldAttributes['background_img'];
+        }
+        return parent::beforeSave($insert);
     }
     public function afterSave($insert, $changedAttributes)
     {

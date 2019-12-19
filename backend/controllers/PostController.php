@@ -106,7 +106,7 @@ class PostController extends Controller
     public function actionDelete(int $id): Response
     {
         $model = Post::findById($id, true);
-        if(!is_null($model->background_img))
+        if(!empty($model->background_img))
         {
             unlink(Yii::$app->params['uploadsDir'] . $model->background_img);
         }

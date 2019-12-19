@@ -15,7 +15,9 @@ use common\components\MetaTagBehavior;
  * Post model.
  *
  * @property string $id
- * @property string $title
+ * @property string $h1
+ * @property string $desc
+ * @property string $type
  * @property string $background_img
  * @property string $anons
  * @property string $content
@@ -32,6 +34,8 @@ class Post extends ActiveRecord
 {
     public const STATUS_PUBLISH = 'publish';
     public const STATUS_DRAFT = 'draft';
+    public const TYPE_POST = 'post';
+    public const TYPE_GUIDE = 'guide';
     public $backgroundImage;
     public function behaviors()
     {
@@ -61,12 +65,13 @@ class Post extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['title'], 'required'],
+            [['h1','desc','type'], 'required'],
             [['category_id', 'author_id'], 'integer'],
             [['anons', 'content', 'publish_status'], 'string'],
             [['background_img'], 'string', 'max' => 255],
             [['publish_date', 'tags'], 'safe'],
-            [['title'], 'string', 'max' => 255],
+            [['h1'], 'string', 'max' => 255],
+            [['desc'], 'string', 'max' => 1000],
             [['backgroundImage'], 'file', 'extensions' => 'png, jpg, svg'],
         ];
     }
@@ -78,7 +83,9 @@ class Post extends ActiveRecord
     {
         return [
             'id' => Yii::t('backend', 'ID'),
-            'title' => Yii::t('backend', 'Title'),
+            'h1' => Yii::t('backend', 'Title h1'),
+            'desc' => Yii::t('backend', 'Description'),
+            'type' => Yii::t('backend', 'Type'),
             'anons' => Yii::t('backend', 'Announce'),
             'content' => Yii::t('backend', 'Content'),
             'category' => Yii::t('backend', 'Category'),

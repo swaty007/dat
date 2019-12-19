@@ -15,11 +15,12 @@ class m191210_030207_create_review_table extends Migration
         $this->createTable('{{%review}}', [
             'id' => $this->primaryKey(),
             'url' => $this->string(255)->notNull(),
+            'image' => $this->string(255)->notNull(),
             'refer_link' => $this->string(255)->notNull(),
             'title' => $this->string(255)->notNull(),
             'h1' => $this->string(255)->notNull(),
             'h1_desc_html' => $this->text()->notNull(),
-            'desc' => $this->string(500)->notNull(),
+            'desc' => $this->string(1000)->notNull(),
             'html_content' => $this->text()->notNull(),
         ]);
     }

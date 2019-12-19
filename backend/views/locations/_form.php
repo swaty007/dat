@@ -22,6 +22,11 @@ use unclead\multipleinput\MultipleInput;
 
     <?= $form->field($model, 'refer_link')->textInput(['maxlength' => true]) ?>
 
+    <?php if (!empty($model->background_img)):?>
+        <img src="<?='/img/uploads/' . $model->background_img?>" style="height:100px;widht:auto;">
+    <?php endif;?>
+    <?= $form->field($model, 'background_img')->fileInput() ?>
+
     <?= $form->field($model, 'h1')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>
