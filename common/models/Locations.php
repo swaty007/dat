@@ -59,6 +59,7 @@ class Locations extends \yii\db\ActiveRecord
             [['desc'], 'string', 'max' => 1000],
             [['model_meta','reasons_head','meta_header','reasons'], 'safe'],
             [['backgroundImage'], 'file', 'extensions' => 'png, jpg, svg'],
+            [[ 'url'], 'unique'],
         ];
     }
 

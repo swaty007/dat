@@ -23,6 +23,7 @@ class m191210_030207_create_review_table extends Migration
             'desc' => $this->string(1000)->notNull(),
             'html_content' => $this->text()->notNull(),
         ]);
+        $this->createIndex('object', '{{%review}}', ['url'], true);
     }
 
     /**

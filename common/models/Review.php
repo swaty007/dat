@@ -58,6 +58,7 @@ class Review extends \yii\db\ActiveRecord
             [['url', 'refer_link', 'title', 'h1'], 'string', 'max' => 255],
             [['desc'], 'string', 'max' => 1000],
             [['model_meta','pros_cons_title','pros','cons','steps_head','steps','steps_footer'], 'safe'],
+            [[ 'url'], 'unique'],
         ];
     }
 

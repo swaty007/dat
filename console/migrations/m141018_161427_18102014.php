@@ -21,6 +21,7 @@ class m141018_161427_18102014 extends Migration
 
         $this->createTable(Post::tableName(), [
             'id' => $this->primaryKey(),
+            'url' => $this->string()->notNull(),
             'h1' => $this->string()->notNull(),
             'desc' => $this->string(1000)->notNull(),
             'type' => $this->string()->notNull(),
@@ -32,6 +33,8 @@ class m141018_161427_18102014 extends Migration
             'publish_status' => "enum('" . Post::STATUS_DRAFT . "','" . Post::STATUS_PUBLISH . "') NOT NULL DEFAULT '" . Post::STATUS_DRAFT . "'",
             'publish_date' => $this->timestamp()->notNull(),
         ], $tableOptions);
+
+        $this->createIndex('object', Post::tableName(), ['url', 'type'], true);
 
         $this->createIndex('FK_post_author', Post::tableName(), 'author_id');
         $this->addForeignKey(

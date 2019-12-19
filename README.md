@@ -25,6 +25,11 @@ Install Blog on Yii Framework 2
   php yii migrate
   ```
 
+6. Запустить docker (dev):
+  ```
+  
+  ```
+
 Default user:
 
 Login: **demoadmin**

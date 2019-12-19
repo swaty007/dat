@@ -24,7 +24,9 @@ class m191209_204546_create_locations_table extends Migration
 //            'html_content_middle' => $this->text()->notNull(),
             'html_content_bottom' => $this->text()->notNull(),
         ]);
+        $this->createIndex('object', '{{%locations}}', ['url'], true);
     }
+
 
     /**
      * {@inheritdoc}

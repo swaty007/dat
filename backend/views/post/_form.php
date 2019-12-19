@@ -25,6 +25,7 @@ use mihaildev\elfinder\ElFinder;
     <?php endif;?>
     <?= $form->field($model, 'background_img')->fileInput() ?>
 
+    <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'h1')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'type')->radioList([Post::TYPE_POST => 'Post', Post::TYPE_GUIDE => 'Guide']) ?>

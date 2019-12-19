@@ -27,6 +27,11 @@ Yii 2 Blog
   php yii migrate
   ```
 
+6. Запустить docker (dev):
+  ```
+  
+  ```
+
 Пользователь по-умолчанию:
 
 Логин: **demoadmin**

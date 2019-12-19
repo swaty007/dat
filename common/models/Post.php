@@ -15,6 +15,7 @@ use common\components\MetaTagBehavior;
  * Post model.
  *
  * @property string $id
+ * @property string $url
  * @property string $h1
  * @property string $desc
  * @property string $type
@@ -65,14 +66,15 @@ class Post extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['h1','desc','type'], 'required'],
+            [['h1','desc','type','url'], 'required'],
             [['category_id', 'author_id'], 'integer'],
             [['anons', 'content', 'publish_status'], 'string'],
             [['background_img'], 'string', 'max' => 255],
             [['publish_date', 'tags'], 'safe'],
-            [['h1'], 'string', 'max' => 255],
+            [['h1','url'], 'string', 'max' => 255],
             [['desc'], 'string', 'max' => 1000],
             [['backgroundImage'], 'file', 'extensions' => 'png, jpg, svg'],
+            [['type', 'url'], 'unique', 'targetAttribute' => ['type', 'url']],
         ];
     }
 
@@ -83,6 +85,7 @@ class Post extends ActiveRecord
     {
         return [
             'id' => Yii::t('backend', 'ID'),
+            'url' => Yii::t('backend', 'Url'),
             'h1' => Yii::t('backend', 'Title h1'),
             'desc' => Yii::t('backend', 'Description'),
             'type' => Yii::t('backend', 'Type'),
