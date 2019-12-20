@@ -20,15 +20,16 @@ use mihaildev\elfinder\ElFinder;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
+
     <?php if (!empty($model->background_img)):?>
         <img src="<?='/img/uploads/' . $model->background_img?>" style="height:100px;widht:auto;">
     <?php endif;?>
     <?= $form->field($model, 'background_img')->fileInput() ?>
 
-    <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'h1')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'type')->radioList([Post::TYPE_POST => 'Post', Post::TYPE_GUIDE => 'Guide']) ?>
+    <?= $form->field($model, 'type')->radioList([Post::TYPE_BLOG_POST => 'Blog Post', Post::TYPE_BLOG_GUIDE => 'Guide']) ?>
 
     <?= $form->field($model, 'category_id')->dropDownList(
         ArrayHelper::map($category, 'id', 'title')

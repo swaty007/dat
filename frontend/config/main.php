@@ -23,9 +23,13 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',
-                '<_c:[\w\-]+>' => '<_c>/index',
-                '<_c:[\w\-]+>/<_a:[\w\-]+>/<id:\d+>' => '<_c>/<_a>',
+                '<controller:(category|comment|post|tag|site)>/<id:\d+>' => '<controller>/view',
+                '<controller:(category|comment|post|tag|site)>' => '<controller>/index',
+                '<controller:(category|comment|post|tag|site)>/<action:[\w\-]+>' => '<controller>/<action>',
+                '<controller:(category|comment|post|tag|site)>/<action:[\w\-]+>/<id:\d+>' => '<controller>/<action>',
+                '<page_url:[\w\-]+>' => 'page/index',
+                '<page_url:[\w\-]+>/<model_url:[\w\-]+>' => 'page/index',
+                '<page_url:[\w\-]+>/<model_url:[\w\-]+>/<model_child:[\w\-]+>' => 'page/index',
             ]
         ],
         'user' => [

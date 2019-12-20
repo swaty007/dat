@@ -22,7 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'id',
-            'title',
+            'h1',
+            'type',
             'anons:ntext',
             [
                 'label' => Yii::t('backend', 'Category'),

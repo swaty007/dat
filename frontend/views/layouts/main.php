@@ -24,40 +24,7 @@ AppAsset::register($this);
 <body>
     <?php $this->beginBody() ?>
     <div class="wrap">
-        <?php
-            NavBar::begin([
-                'brandLabel' => 'Sllite.ru',
-                'brandUrl' => Yii::$app->homeUrl,
-                'options' => [
-                    'class' => 'navbar-inverse navbar-fixed-top',
-                ],
-            ]);
-            $menuItems = [
-                ['label' => Yii::t('frontend', 'Blog'), 'url' => ['/post/index']],
-                ['label' => Yii::t('frontend', 'About'), 'url' => ['/site/about']],
-                ['label' => Yii::t('frontend', 'Contact'), 'url' => ['/site/contact']],
-            ];
-            if (Yii::$app->user->isGuest) {
-                $menuItems[] = ['label' => Yii::t('frontend', 'Sign up'), 'url' => ['/site/signup']];
-                $menuItems[] = ['label' => Yii::t('frontend', 'Login'), 'url' => ['/site/login']];
-            } else {
-                $menuItems[] = [
-                    'label' => Yii::t('frontend', 'Logout ({username})', ['username' => Yii::$app->user->identity->username]),
-                    'url' => ['/site/logout'],
-                    'linkOptions' => ['data-method' => 'post']
-                ];
-                $menuItems[] = [
-                    'label' => Yii::t('frontend', 'Administration'),
-                    'url' => ['/admin/site']
-                ];
-            }
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav navbar-right'],
-                'items' => $menuItems,
-            ]);
-            NavBar::end();
-        ?>
-
+        <?= \frontend\widgets\MainMenu::widget(); ?>
         <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
@@ -69,7 +36,7 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-            <p class="pull-left">&copy; <a href="https://sllite.ru" target="_blank">sllite.ru</a> <?= date('Y') ?></p>
+            <p class="pull-left">&copy; <a href="" target="_blank">mob latin</a> <?= date('Y') ?></p>
             <p class="pull-right"><?= Yii::powered() ?></p>
         </div>
     </footer>

@@ -3,12 +3,14 @@
 use common\components\MetaTags;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use unclead\multipleinput\MultipleInput;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Locations */
+/* @var $parents common\models\Locations */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -16,7 +18,9 @@ use unclead\multipleinput\MultipleInput;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'parent_id')->textInput() ?>
+    <?= $form->field($model, 'parent_id')->radioList(
+        ArrayHelper::map($parents, 'id', 'h1')
+    ) ?>
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
 

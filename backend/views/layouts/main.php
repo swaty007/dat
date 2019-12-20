@@ -26,7 +26,7 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => 'Sllite.ru',
+                'brandLabel' => 'Mob Latin',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
@@ -71,6 +71,7 @@ AppAsset::register($this);
                 <li><a href="<?= Url::toRoute('comment/index'); ?>"><?= Yii::t('backend', 'Comments') ?></a></li>
                     </ul>
                 </li>
+                <li><a href="<?= Url::toRoute('page/index'); ?>"><?= Yii::t('backend', 'Pages') ?></a></li>
                 <li><a href="<?= Url::toRoute('locations/index'); ?>"><?= Yii::t('backend', 'Locations') ?></a></li>
                 <li><a href="<?= Url::toRoute('review/index'); ?>"><?= Yii::t('backend', 'Review') ?></a></li>
                 <li><a href="<?= Url::toRoute('user/index'); ?>"><?= Yii::t('backend', 'Users') ?></a></li>

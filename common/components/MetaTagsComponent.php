@@ -18,6 +18,7 @@ class MetaTagsComponent extends \yii\base\Component {
         if(isset($model) && $model->getBehavior(self::$behaviorName))
         {
             $meta_tag = $model->getBehavior(self::$behaviorName)->model;
+            Yii::$app->view->title = $meta_tag->title;
             Yii::$app->view->registerMetaTag(['name' => 'title', 'content' => $meta_tag->title], 'title');
             Yii::$app->view->registerMetaTag(['name' => 'keywords', 'content' => $meta_tag->keywords], 'keywords');
             Yii::$app->view->registerMetaTag(['name' => 'description', 'content' => $meta_tag->description], 'description');

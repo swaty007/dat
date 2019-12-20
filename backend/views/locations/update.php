@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Locations */
+/* @var $parents common\models\Locations */
 
 $this->title = Yii::t('app', 'Update Locations: {name}', [
     'name' => $model->id,
@@ -18,6 +19,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
+        'parents' => $parents
     ]) ?>
 
 </div>

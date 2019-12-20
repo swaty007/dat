@@ -24,7 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -35,11 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'content:ntext',
             [
                 'label' => Yii::t('backend', 'Category'),
-                'value' => 'category.title'
+                'value' => $model->category->title,
             ],
             [
                 'label' => Yii::t('backend', 'Author'),
-                'value' => 'author.username',
+                'value' => $model->author->username,
             ],
             'publish_status',
             'publish_date',

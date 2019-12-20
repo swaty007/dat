@@ -1,14 +1,14 @@
 /*
- Theme Name: Car UA
- Author: Andrey Zdrobilko
+ Theme Name: Swift Delivery
+ Author: Alex Lialiushko
  Version: 1.0
 */
 
-//@import "libs";
+@import "libs";
 
 /* Utils */
 @import "utils/variables";
-//@import "utils/mixins";
+@import "utils/mixins";
 @import "utils/grid";
 @import "utils/fonts";
 
@@ -18,11 +18,29 @@
 @import "base/globals";
 
 /* Components */
-//@import "components/alert";
+@import "components/alert";
+@import "components/form-group";
+@import "components/item";
+@import "components/plan";
+@import "components/file-container";
+@import "components/checkbox";
+@import "components/select";
+@import "components/spinner";
+@import "components/modal";
+@import "components/blockquotes";
 
 /* Icludes */
-@import "includes/footer.scss";
-@import "includes/header.scss";
+@import "includes/footer";
+@import "includes/header";
+@import "includes/navbar";
 
 /* Sections */
-//@import "sections/cta";
+@import "sections/cta";
+@import "sections/how-it-works";
+@import "sections/order";
+@import "sections/card";
+@import "sections/access";
+@import "sections/supplier";
+@import "sections/confirm-supplier";
+@import "sections/searching";
+@import "sections/on-way";

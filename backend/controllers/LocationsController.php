@@ -78,7 +78,6 @@ class LocationsController extends Controller
     {
         $model = new Locations();
 
-//        echo var_dump(Yii::$app->request->post());exit;
         if ($model->load(Yii::$app->request->post())) {
             $model->backgroundImage = UploadedFile::getInstance($model, 'background_img');
             if ($model->save()) {
@@ -88,6 +87,7 @@ class LocationsController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'parents' => Locations::findCountries()
         ]);
     }
 
@@ -107,11 +107,11 @@ class LocationsController extends Controller
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-
         }
 
         return $this->render('update', [
             'model' => $model,
+            'parents' => Locations::findCountries()
         ]);
     }
 

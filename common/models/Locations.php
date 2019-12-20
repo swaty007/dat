@@ -16,7 +16,6 @@ use Yii;
  * @property string $desc
  * @property string $background_img
  * @property string $html_content_top
-// * @property string $html_content_middle
  * @property string $html_content_bottom
  *
  * @property ModelMeta[] $model_meta
@@ -52,14 +51,14 @@ class Locations extends \yii\db\ActiveRecord
     {
         return [
             [['parent_id'], 'integer'],
-            [['url', 'refer_link', 'h1', 'desc', 'html_content_top', 'html_content_middle', 'html_content_bottom'], 'required'],
-            [['html_content_top', 'html_content_middle', 'html_content_bottom'], 'string'],
+            [['url', 'refer_link', 'h1', 'desc', 'html_content_top', 'html_content_bottom'], 'required'],
+            [['html_content_top', 'html_content_bottom'], 'string'],
             [['url', 'h1'], 'string', 'max' => 55],
             [['refer_link'], 'string', 'max' => 255],
             [['desc'], 'string', 'max' => 1000],
             [['model_meta','reasons_head','meta_header','reasons'], 'safe'],
             [['backgroundImage'], 'file', 'extensions' => 'png, jpg, svg'],
-            [[ 'url'], 'unique'],
+            [['url'], 'unique'],
         ];
     }
 
@@ -86,6 +85,7 @@ class Locations extends \yii\db\ActiveRecord
 //    {
 //        $this->model_meta = $metasData;
 //    }
+
     /**
      * @return \yii\db\ActiveQuery     */
     public function getModel_meta()
@@ -153,5 +153,12 @@ class Locations extends \yii\db\ActiveRecord
         }
 
         parent::afterDelete();
+    }
+
+    public static function findCountries() {
+        return Locations::find()->where(['parent_id' => null])->all();
+    }
+    public static function findCities() {
+        return Locations::find()->where(['!=', 'parent_id', null])->all();
     }
 }

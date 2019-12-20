@@ -25,7 +25,7 @@ class m141018_161427_18102014 extends Migration
             'h1' => $this->string()->notNull(),
             'desc' => $this->string(1000)->notNull(),
             'type' => $this->string()->notNull(),
-            'background_img' => $this->string(255)->notNull(),
+            'background_img' => $this->string(255),
             'anons' => $this->text()->notNull(),
             'content' => $this->text()->notNull(),
             'category_id' => $this->integer(),

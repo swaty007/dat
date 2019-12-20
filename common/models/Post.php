@@ -35,8 +35,8 @@ class Post extends ActiveRecord
 {
     public const STATUS_PUBLISH = 'publish';
     public const STATUS_DRAFT = 'draft';
-    public const TYPE_POST = 'post';
-    public const TYPE_GUIDE = 'guide';
+    public const TYPE_BLOG_POST = 'blog';
+    public const TYPE_BLOG_GUIDE = 'guide';
     public $backgroundImage;
     public function behaviors()
     {
@@ -158,6 +158,20 @@ class Post extends ActiveRecord
                 ->where(['publish_status' => self::STATUS_PUBLISH])
                 ->orderBy(['publish_date' => SORT_DESC])
         ]);
+    }
+    public static function findPublishedPosts()
+    {
+         return Post::find()
+             ->where(['type' => Post::TYPE_BLOG_POST])
+             ->andWhere(['publish_status' => self::STATUS_PUBLISH])
+             ->orderBy(['publish_date' => SORT_DESC])->all();
+    }
+    public static function findPublishedGuides()
+    {
+        return Post::find()
+            ->where(['type' => Post::TYPE_BLOG_GUIDE])
+            ->andWhere(['publish_status' => self::STATUS_PUBLISH])
+            ->orderBy(['publish_date' => SORT_DESC])->all();
     }
 
     /**

@@ -40,13 +40,22 @@ body {
 
 img {
   vertical-align: middle;
+  max-width: 100%;
 }
 
 .hidden {
   display: none !important;
 }
-.text-center {
-  text-align: center;
+.text {
+  &-center {
+    text-align: center;
+  }
+  &-left {
+    text-align: left;
+  }
+  &-right {
+    text-align: right;
+  }
 }
 
 textarea{

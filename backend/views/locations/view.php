@@ -36,7 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'h1',
             'desc',
             'html_content_top:ntext',
-            'html_content_middle:ntext',
             'html_content_bottom:ntext',
         ],
     ]) ?>
