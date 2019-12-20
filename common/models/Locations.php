@@ -159,6 +159,6 @@ class Locations extends \yii\db\ActiveRecord
         return Locations::find()->where(['parent_id' => null])->all();
     }
     public static function findCities() {
-        return Locations::find()->where(['!=', 'parent_id', null])->all();
+        return Locations::find()->where(['NOT', ['parent_id' => null]])->all();
     }
 }
