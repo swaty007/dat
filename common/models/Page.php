@@ -17,14 +17,21 @@ use Yii;
  */
 class Page extends \yii\db\ActiveRecord
 {
+    const TEMPLATE_COUNTRIES = "countries";
+    const TEMPLATE_CITIES = "cities";
+    const TEMPLATE_RATING = "rating";
+    const TEMPLATE_GUIDE = "guide";
+    const TEMPLATE_BLOG = "blog";
+    const TEMPLATE_ABOUT = "about";
+    const TEMPLATE_POLICY = "privacy policy";
     public const TEMPLATES = [
-        'countries' => 'countries',
-        'cities' => 'cities',
-        'rating' => 'rating',
-        'guide' => 'guide',
-        'blog' => 'blog',
-        'about' => 'about',
-        'privacy policy' => 'privacy policy'
+        self::TEMPLATE_COUNTRIES => 'countries',
+        self::TEMPLATE_CITIES => 'cities',
+        self::TEMPLATE_RATING => 'rating',
+        self::TEMPLATE_GUIDE => 'guide',
+        self::TEMPLATE_BLOG => 'blog',
+        self::TEMPLATE_ABOUT => 'about',
+        self::TEMPLATE_POLICY => 'privacy policy'
     ];
     public $backgroundImage;
     public function behaviors()
@@ -71,6 +78,24 @@ class Page extends \yii\db\ActiveRecord
             'template' => Yii::t('backend', 'Template'),
         ];
     }
+    public function getItems() {
+        switch ($this->template) {
+            case self::TEMPLATE_CITIES:
+                return Locations::findCities();
+//                return $this->hasMany(Locations::class, ['NOT', ['parent_id' => null]]);
+                break;
+            case self::TEMPLATE_COUNTRIES:
+                return Locations::findCountries();
+                break;
+            case self::TEMPLATE_GUIDE:
+            case self::TEMPLATE_BLOG:
+                return Post::findPublishedByType($this->template);
+                break;
+            case self::TEMPLATE_RATING:
+                return null;
+                break;
+        }
+    }
 
     /**
      * @inheritdoc
@@ -114,10 +139,8 @@ class Page extends \yii\db\ActiveRecord
                     $items = Review::find()->all();
                     break;
                 case 'guide':
-                    $items = Post::findPublishedGuides();
-                    break;
                 case 'blog':
-                    $items = Post::findPublishedPosts();
+                    $items = Post::findPublishedByType($page->template);
                     break;
                 default:
                     $menuItems[] = ['label' => $page->template, 'url' => '/'.$page->url];

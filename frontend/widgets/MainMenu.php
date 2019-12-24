@@ -20,7 +20,7 @@ class MainMenu extends \yii\bootstrap\Widget
             'brandLabel' => 'Mob Latin',
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
-                'class' => 'navbar-inverse navbar-fixed-top',
+                'class' => 'navbar-inverse',
             ],
         ]);
         $menuItems = Page::getMenuItems();

@@ -80,6 +80,7 @@ class LocationsController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->backgroundImage = UploadedFile::getInstance($model, 'background_img');
+            $model->image = UploadedFile::getInstance($model, 'img');
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -104,6 +105,7 @@ class LocationsController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->backgroundImage = UploadedFile::getInstance($model, 'background_img');
+            $model->image = UploadedFile::getInstance($model, 'img');
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -128,6 +130,10 @@ class LocationsController extends Controller
         if(!empty($model->background_img))
         {
             unlink(Yii::$app->params['uploadsDir'] . $model->background_img);
+        }
+        if(!empty($model->img))
+        {
+            unlink(Yii::$app->params['uploadsDir'] . $model->img);
         }
         $model->delete();
 

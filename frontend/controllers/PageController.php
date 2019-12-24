@@ -97,8 +97,6 @@ class PageController extends Controller
             }
         }
         throw new NotFoundHttpException('The requested post does not exist.', 404);
-
-
     }
 
     private function post($url, $type) {

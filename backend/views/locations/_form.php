@@ -31,6 +31,11 @@ use unclead\multipleinput\MultipleInput;
     <?php endif;?>
     <?= $form->field($model, 'background_img')->fileInput() ?>
 
+    <?php if (!empty($model->img)):?>
+        <img src="<?='/img/uploads/' . $model->img?>" style="height:100px;widht:auto;">
+    <?php endif;?>
+    <?= $form->field($model, 'img')->fileInput() ?>
+
     <?= $form->field($model, 'h1')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>

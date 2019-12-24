@@ -129,10 +129,10 @@ export const styles = () =>
             })
         )
         .pipe(groupmediaqueries())
-        .pipe(
-            autoprefixer({
-                browsers: ["last 12 versions", "> 1%", "ie 8", "ie 7"],})
-        )
+        // .pipe(
+        //     autoprefixer({
+        //         browsers: ["last 12 versions", "> 1%", "ie 8", "ie 7"],})
+        // )
         .pipe(
             mincss({
                 compatibility: "ie8",

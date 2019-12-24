@@ -2,14 +2,15 @@ $black: #000;
 $white: #fff;
 
 $brand-green: #0EC69A;
-$brand-blue: #2A2C57;
+$brand-blue: #023358;
+$brand-blue-light: #055492;
 $brand-red: #E24343;
 $brand-yellow: #F2C94C;
+$bg-gradient: linear-gradient(134.72deg, #3023AE 0%, #C86DD7 100%);
+$bg-gradient-dark: linear-gradient(22deg,#062972 0%,#07438d 100%);;
 
-$text-white: fade-out($white, 0.2);
-$text-blue: fade-out($brand-blue, 0.2);
-$text-blue-opacity: fade-out($brand-blue, 0.5);
-$text-green: fade-out($brand-green, 0.2);
+$bg-light: #f5f8fb;
+$bg-dark: $brand-blue;
 
 $light: 300;
 $regular: 400;

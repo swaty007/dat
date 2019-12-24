@@ -15,6 +15,7 @@ use Yii;
  * @property string $h1
  * @property string $desc
  * @property string $background_img
+ * @property string $img
  * @property string $html_content_top
  * @property string $html_content_bottom
  *
@@ -23,6 +24,7 @@ use Yii;
 class Locations extends \yii\db\ActiveRecord
 {
     public $backgroundImage;
+    public $image;
     protected $model_meta = [];
     protected $meta_header = [];
     protected $reasons_head = [];
@@ -57,7 +59,7 @@ class Locations extends \yii\db\ActiveRecord
             [['refer_link'], 'string', 'max' => 255],
             [['desc'], 'string', 'max' => 1000],
             [['model_meta','reasons_head','meta_header','reasons'], 'safe'],
-            [['backgroundImage'], 'file', 'extensions' => 'png, jpg, svg'],
+            [['backgroundImage','image'], 'file', 'extensions' => 'png, jpg, svg'],
             [['url'], 'unique'],
         ];
     }
@@ -93,7 +95,16 @@ class Locations extends \yii\db\ActiveRecord
         return $this->hasMany(ModelMeta::className(), ['model_id' => 'id'])
             ->andOnCondition('model = "Locations"');
     }
-
+    public function getParent ()
+    {
+        return self::find()->where(['id' => $this->parent_id])->one();
+    }
+    public function getImgUrl(){
+        return Yii::$app->params['uploadsWeb'].$this->img;
+    }
+    public function getBackground_img_url(){
+        return Yii::$app->params['uploadsWeb'].$this->background_img;
+    }
     public function getMeta_header()
     {
         return $this->hasMany(ModelMeta::className(), ['model_id' => 'id'])
@@ -119,11 +130,22 @@ class Locations extends \yii\db\ActiveRecord
             {
                 unlink(Yii::$app->params['uploadsDir'] . $this->oldAttributes['background_img']);
             }
-            $pimgName =  'location' . time() . $this->id . '.' . $this->backgroundImage->extension;
+            $pimgName =  'location_bg' . time() . $this->id . '.' . $this->backgroundImage->extension;
             $this->backgroundImage->saveAs(Yii::$app->params['uploadsDir'] . $pimgName);
             $this->background_img = $pimgName;
         } else {
             $this->background_img = $this->oldAttributes['background_img'];
+        }
+        if ($this->image) {
+            if(!empty($this->oldAttributes['img']))
+            {
+                unlink(Yii::$app->params['uploadsDir'] . $this->oldAttributes['img']);
+            }
+            $pimgName =  'location_img' . time() . $this->id . '.' . $this->image->extension;
+            $this->image->saveAs(Yii::$app->params['uploadsDir'] . $pimgName);
+            $this->img = $pimgName;
+        } else {
+            $this->img = $this->oldAttributes['img'];
         }
         return parent::beforeSave($insert);
     }
@@ -156,9 +178,9 @@ class Locations extends \yii\db\ActiveRecord
     }
 
     public static function findCountries() {
-        return Locations::find()->where(['parent_id' => null])->all();
+        return self::find()->where(['parent_id' => null])->all();
     }
     public static function findCities() {
-        return Locations::find()->where(['NOT', ['parent_id' => null]])->all();
+        return self::find()->where(['NOT', ['parent_id' => null]])->all();
     }
 }

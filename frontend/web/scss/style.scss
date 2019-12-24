@@ -18,16 +18,16 @@
 @import "base/globals";
 
 /* Components */
-@import "components/alert";
-@import "components/form-group";
+//@import "components/alert";
+//@import "components/form-group";
 @import "components/item";
-@import "components/plan";
-@import "components/file-container";
-@import "components/checkbox";
-@import "components/select";
-@import "components/spinner";
-@import "components/modal";
-@import "components/blockquotes";
+//@import "components/plan";
+//@import "components/file-container";
+//@import "components/checkbox";
+//@import "components/select";
+//@import "components/spinner";
+//@import "components/modal";
+//@import "components/blockquotes";
 
 /* Icludes */
 @import "includes/footer";
@@ -35,12 +35,8 @@
 @import "includes/navbar";
 
 /* Sections */
-@import "sections/cta";
-@import "sections/how-it-works";
-@import "sections/order";
-@import "sections/card";
-@import "sections/access";
-@import "sections/supplier";
-@import "sections/confirm-supplier";
-@import "sections/searching";
-@import "sections/on-way";
+@import "sections/cities";
+@import "sections/countries";
+@import "sections/locations";
+@import "sections/blog";
+@import "sections/guide";

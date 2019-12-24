@@ -18,6 +18,7 @@ class m191209_204546_create_locations_table extends Migration
             'url' => $this->string(255)->notNull(),
             'refer_link' => $this->string(255)->notNull(),
             'background_img' => $this->string(255),
+            'img' => $this->string(255),
             'h1' => $this->string(255)->notNull(),
             'desc' => $this->string(1000)->notNull(),
             'html_content_top' => $this->text()->notNull(),

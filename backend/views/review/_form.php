@@ -56,46 +56,54 @@ use yii\widgets\ActiveForm;
             ],
         ]
     ]);?>
-    <?= $form->field($model, 'pros')->widget(MultipleInput::className(), [
+    <div class="row">
+        <div class="col-sm-6">
+            <?= $form->field($model, 'pros')->widget(MultipleInput::className(), [
 //        'max' => 1,
 //        'min' => 3,
-        'addButtonPosition' => MultipleInput::POS_FOOTER,
-        'columns' => [
-            [
-                'name'  => 'meta_key',
-                'type'  => 'dropDownList',
-                'title' => 'Position',
-                'defaultValue' => 'pros',
-                'items' => [
-                    'pros' => 'Pros'
+                'addButtonPosition' => MultipleInput::POS_FOOTER,
+                'columns' => [
+                    [
+                        'name'  => 'meta_key',
+                        'type'  => 'dropDownList',
+                        'title' => 'Position',
+                        'defaultValue' => 'pros',
+                        'items' => [
+                            'pros' => 'Pros'
+                        ]
+                    ],
+                    [
+                        'name'  => 'meta_value',
+                        'title' => "Value Pros div/span",
+                    ],
                 ]
-            ],
-            [
-                'name'  => 'meta_value',
-                'title' => "Value Pros div/span",
-            ],
-        ]
-    ]);?>
-    <?= $form->field($model, 'cons')->widget(MultipleInput::className(), [
+            ]);?>
+        </div>
+        <div class="col-sm-6">
+            <?= $form->field($model, 'cons')->widget(MultipleInput::className(), [
 //        'max' => 1,
 //        'min' => 3,
-        'addButtonPosition' => MultipleInput::POS_FOOTER,
-        'columns' => [
-            [
-                'name'  => 'meta_key',
-                'type'  => 'dropDownList',
-                'title' => 'Position',
-                'defaultValue' => 'cons',
-                'items' => [
-                    'cons' => 'Cons'
+                'addButtonPosition' => MultipleInput::POS_FOOTER,
+                'columns' => [
+                    [
+                        'name'  => 'meta_key',
+                        'type'  => 'dropDownList',
+                        'title' => 'Position',
+                        'defaultValue' => 'cons',
+                        'items' => [
+                            'cons' => 'Cons'
+                        ]
+                    ],
+                    [
+                        'name'  => 'meta_value',
+                        'title' => "Value Cons div/span",
+                    ],
                 ]
-            ],
-            [
-                'name'  => 'meta_value',
-                'title' => "Value Cons div/span",
-            ],
-        ]
-    ]);?>
+            ]);?>
+        </div>
+    </div>
+
+
 
     <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>
 

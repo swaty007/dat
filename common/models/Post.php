@@ -124,6 +124,10 @@ class Post extends ActiveRecord
         ]);
     }
 
+    public function getBackground_img_url(){
+        return Yii::$app->params['uploadsWeb'].$this->background_img;
+    }
+
     public function setTags(array $tagsId): void
     {
         $this->tags = $tagsId;
@@ -154,24 +158,17 @@ class Post extends ActiveRecord
     public static function findPublished(): ActiveDataProvider
     {
         return new ActiveDataProvider([
-            'query' => Post::find()
+            'query' => self::find()
                 ->where(['publish_status' => self::STATUS_PUBLISH])
                 ->orderBy(['publish_date' => SORT_DESC])
         ]);
     }
-    public static function findPublishedPosts()
+    public static function findPublishedByType($type)
     {
-         return Post::find()
-             ->where(['type' => Post::TYPE_BLOG_POST])
+         return self::find()
+             ->where(['type' => $type])
              ->andWhere(['publish_status' => self::STATUS_PUBLISH])
              ->orderBy(['publish_date' => SORT_DESC])->all();
-    }
-    public static function findPublishedGuides()
-    {
-        return Post::find()
-            ->where(['type' => Post::TYPE_BLOG_GUIDE])
-            ->andWhere(['publish_status' => self::STATUS_PUBLISH])
-            ->orderBy(['publish_date' => SORT_DESC])->all();
     }
 
     /**
