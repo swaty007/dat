@@ -17,7 +17,7 @@ services:
       dockerfile: ./docker/Dockerfile
     # Показываем наружу 80 порт
     ports: 
-      - "80:80"
+      - "20080:80"
     # Подключаем к общей сети с другими контейнерами
     networks: 
       - default
