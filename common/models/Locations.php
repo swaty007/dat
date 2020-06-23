@@ -25,10 +25,10 @@ class Locations extends \yii\db\ActiveRecord
 {
     public $backgroundImage;
     public $image;
-    protected $model_meta = [];
-    protected $meta_header = [];
-    protected $reasons_head = [];
-    protected $reasons = [];
+    private $model_meta = [];
+    private $meta_header = [];
+    private $reasons_head = [];
+    private $reasons = [];
     public function behaviors()
     {
         return [

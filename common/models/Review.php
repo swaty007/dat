@@ -23,13 +23,13 @@ use Yii;
 class Review extends \yii\db\ActiveRecord
 {
     public $reviewImage;
-    protected $model_meta = [];
-    protected $pros_cons_title = [];
-    protected $pros = [];
-    protected $cons = [];
-    protected $steps_head = [];
-    protected $steps = [];
-    protected $steps_footer = [];
+    private $model_meta = [];
+    private $pros_cons_title = [];
+    private $pros = [];
+    private $cons = [];
+    private $steps_head = [];
+    private $steps = [];
+    private $steps_footer = [];
     public function behaviors()
     {
         return [
